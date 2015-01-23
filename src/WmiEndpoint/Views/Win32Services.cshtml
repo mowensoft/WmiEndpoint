@@ -1,0 +1,18 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<System.Collections.Generic.IEnumerable<WmiEndpoint.ViewModels.WindowsServiceViewModel>>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Windows Services</strong>
+    </div>
+    <div class="list-group">
+        @foreach (var windowsService in @Model)
+        {
+            <a href="/wmi/win32_service/@windowsService.Name" class="list-group-item">
+                @windowsService.DisplayName
+                <span class="label pull-right label-as-badge @(windowsService.Status == "Stopped" ? "label-danger" : (windowsService.Status == "Running" ? "label-success" : "label-warning"))">@windowsService.Status</span>
+            </a>
+        }
+    </div>    
+</div>
+
+        

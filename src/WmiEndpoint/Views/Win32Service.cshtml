@@ -1,0 +1,31 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<WmiEndpoint.ViewModels.WindowsServiceViewModel>
+<html>
+<head>
+    <title>Lollercaust</title>
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/app.css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @Model.DisplayName
+                <span class="label pull-right label-as-badge @(Model.Status == "Stopped" ? "label-danger" : (Model.Status == "Running" ? "label-success" : "label-warning"))">@Model.Status</span>
+            </div>
+            <div class="panel-body">
+                <p>@Model.Description</p>
+            </div>
+            <div class="panel-footer">
+                @if (Model.Status == "Running")
+                {
+                    <a class="btn btn-sm btn-primary" href="/wmi/win32_service/@(Model.Name)/stop">Stop</a>
+                }
+                else if (Model.Status == "Stopped")
+                {
+                    <a class="btn btn-sm btn-primary" href="/wmi/win32_service/@(Model.Name)/start">Start</a>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
